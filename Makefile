@@ -1,19 +1,11 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99
 
-SRCS = main.c
-OBJS = main.o
-HEADERS = marks.h grades.h marks_card.h
+myprogram: main.o
+	$(CC) $(CFLAGS) -o myprogram main.o
 
-TARGET = myprogram
-
-$(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^
-
-main.o: main.c $(HEADERS)
-	$(CC) $(CFLAGS) -c -o $@ $<
-
-.PHONY: clean
+main.o: main.c grades.h marks.h marks_card.h
+	$(CC) $(CFLAGS) -c main.c
 
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f *.o myprogram
