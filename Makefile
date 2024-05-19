@@ -1,19 +1,31 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c99
+CFLAGS = -Wall
 
-SRCS = main.c
-OBJS = main.o
-HEADERS = marks.h grades.h marks_card.h
+all: details.exe marks.exe markscard.exe main.exe
 
-TARGET = myprogram
+details.exe: details.o
+	$(CC) $(CFLAGS) -o details.exe details.o
 
-$(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^
+marks.exe: marks.o
+	$(CC) $(CFLAGS) -o marks.exe marks.o
 
-main.o: main.c $(HEADERS)
-	$(CC) $(CFLAGS) -c -o $@ $<
+markscard.exe: markscard.o
+	$(CC) $(CFLAGS) -o markscard.exe markscard.o
 
-.PHONY: clean
+main.exe: main.o
+	$(CC) $(CFLAGS) -o main.exe main.o
+
+details.o: details.c
+	$(CC) $(CFLAGS) -c details.c
+
+marks.o: marks.c
+	$(CC) $(CFLAGS) -c marks.c
+
+markscard.o: markscard.c
+	$(CC) $(CFLAGS) -c markscard.c
+
+main.o: main.c
+	$(CC) $(CFLAGS) -c main.c
 
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f *.o details.exe marks.exe markscard.exe main.exe
